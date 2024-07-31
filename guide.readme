@@ -1,0 +1,30 @@
+1. Sistema de Gestión de Biblioteca
+Descripción: Crea un sistema de gestión de biblioteca que permita a los usuarios realizar acciones como agregar libros, buscar libros por título o autor, prestar y devolver libros, y ver la lista de libros disponibles.
+
+Requisitos:
+
+Crear clases para representar Libro, Usuario y Biblioteca.
+Implementar funcionalidades para agregar y eliminar libros.
+Permitir que los usuarios puedan buscar libros por título o autor.
+Permitir a los usuarios prestar y devolver libros.
+Gestionar el estado de los libros (prestado o disponible).
+Características opcionales:
+
+Implementar un sistema de autenticación básico para usuarios.
+Agregar funcionalidades de filtrado y ordenamiento de libros.
+Implementar un registro de historial de préstamos.
+2. Sistema de Registro de Estudiantes
+Descripción: Desarrolla un sistema para registrar estudiantes y sus notas en diferentes asignaturas. El sistema debe permitir la gestión de estudiantes, asignaturas y calificaciones.
+
+Requisitos:
+
+Crear clases para Estudiante, Asignatura y Registro.
+Implementar métodos para agregar y eliminar estudiantes.
+Permitir la gestión de asignaturas (agregar, eliminar).
+Asignar calificaciones a los estudiantes para diferentes asignaturas.
+Calcular la media de calificaciones para cada estudiante y determinar su estatus (aprobado o reprobado).
+Características opcionales:
+
+Implementar un sistema de autenticación para administradores y estudiantes.
+Agregar funcionalidades de búsqueda y filtrado de estudiantes por nombre, calificación o asignatura.
+Generar reportes de calificaciones y promedios.
