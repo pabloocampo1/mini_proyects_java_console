@@ -8,11 +8,14 @@ Implementar funcionalidades para agregar y eliminar libros.
 Permitir que los usuarios puedan buscar libros por título o autor.
 Permitir a los usuarios prestar y devolver libros.
 Gestionar el estado de los libros (prestado o disponible).
-Características opcionales:
 
 Implementar un sistema de autenticación básico para usuarios.
 Agregar funcionalidades de filtrado y ordenamiento de libros.
 Implementar un registro de historial de préstamos.
+
+
+
+
 2. Sistema de Registro de Estudiantes
 Descripción: Desarrolla un sistema para registrar estudiantes y sus notas en diferentes asignaturas. El sistema debe permitir la gestión de estudiantes, asignaturas y calificaciones.
 
