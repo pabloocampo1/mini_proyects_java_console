@@ -9,6 +9,7 @@ public class User {
     private String passWord;
     private static int idGlobal = 10000;
     private int id;
+    private String rol;
 
     public User(String name, int identification, int age, String userName, String passWord){
         this.name = name;
@@ -23,6 +24,15 @@ public class User {
 
     public String getName () {
         return this.name;
+    };
+    public String getUserName () {
+        return this.userName;
+    }
+    public String getPassWord () {
+        return this.passWord;
+    }
+    public String getRol() {
+        return rol;
     }
     public int getIdentification () {
         return this.identification;
