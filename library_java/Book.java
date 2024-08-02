@@ -18,5 +18,32 @@ public class Book {
         this.id = ++idGlobalBook;
     }
 
-    
+    //method for book
+    public String getTitle(){
+        return this.title;
+    }
+    public String getDescription(){
+        return this.description;
+    }
+    public String getAuthor(){
+        return this.author;
+    }
+    public int getQuality(){
+        return this.quality;
+    }
+    public int getYear(){
+        return this.year;
+    }
+    public int getId(){
+        return this.id;
+    }
+
+    public void getInfoBook() {
+
+        System.out.println("_______________________________________________");
+        System.out.println("--  "+this.title);
+        System.out.println("--  "+this.year);
+        System.out.println("--  "+this.author);
+        System.out.println("--  "+this.description);
+    }
 }
