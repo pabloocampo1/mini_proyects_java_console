@@ -36,7 +36,7 @@ public class Library {
             int ageI = input.nextInt();
 
             if (ageI < 1 || ageI > 100) {
-                System.out.println("edad no validad. vuelve a intentarlo");
+                System.out.println("edad no valida. vuelve a intentarlo");
             }else{
                 age = ageI;
                 break;
@@ -68,7 +68,7 @@ public class Library {
                identification = identi;
                break;
             }else{
-                System.out.println("__El numero de identifacion ya esta registrado, intentalo de nuevo.");
+                System.out.println("____El numero de identifacion ya esta registrado, intentalo de nuevo.____");
             }
         };
        
@@ -142,10 +142,11 @@ public class Library {
 
     public void logIn() {
         boolean isLogin = true;
-        while (isLogin) {
-            System.out.println("tu nombre de usuario: ");
+        while (isLogin) { 
+            System.out.println("____  login  _____");
+            System.out.println("nombre de usuario: ");
             String userName = input.nextLine();
-
+            System.out.println("_______________________________");
             System.out.println("tu contraseña: ");
             String password = input.nextLine();
 
@@ -172,11 +173,11 @@ public class Library {
     public void menuLogin(){
         boolean loginActive = true;
         while (loginActive) {
-            System.out.println("___Bienvenido al inicio de sesion____");
-            System.out.println("___ 1. Iniciar sesion ____");
-            System.out.println("___ 2. registrarse ____");
+            System.out.println("___Bienvenido al inicio de sesion___");
+            System.out.println("  1. Iniciar sesion  ");
+            System.out.println("  2. registrarse \n ");
 
-            System.out.println("__digite la opcion que desea____");
+            System.out.println("  digite la opcion que desea: ");
             int option = input.nextInt();
             input.nextLine();
 
@@ -196,25 +197,23 @@ public class Library {
         }
     }
 
+    //menu of admin
+
+    public void menuAdmin(User user) {
+        while (true) {
+            System.out.println("___ Menu  admin ____");
+            System.out.println("1. crear usuario administrador \n 2. Agregar libros\n 3. Eliminar libros\n 4. Eliminar libro\n 5. ver todos los libros  ");
+        }
+    }
+    public void menuUser(User user){
+            System.out.println("menu de usuarios" + user.getName());
+    }
+
     public void jjj(UserSimple user){
         userDB.add(user);
     }
     public void jjj(userAdmin user){
         userDB.add(user);
-    }
-
-
-    public void menuAdmin(User user) {
-        System.out.println("menu de admins" + user.getName());
-    }
-    public void showDb() {
-        for (User user : userDB) {
-            user.getInformation();
-        }
-    }
-
-    public void menuUser(User user){
-            System.out.println("menu de usuarios" + user.getName());
     }
 
     public static void main(String[] args) {
