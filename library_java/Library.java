@@ -200,11 +200,81 @@ public class Library {
     //menu of admin
 
     public void menuAdmin(User user) {
-        while (true) {
+        boolean menuActive = true;
+        while (menuActive) {
             System.out.println("___ Menu  admin ____");
-            System.out.println("1. crear usuario administrador \n 2. Agregar libros\n 3. Eliminar libros\n 4. Eliminar libro\n 5. ver todos los libros  ");
+            System.out.println("\n 1. Cambiar credenciales \n 2. Agregar libros\n 3. Eliminar libros\n 4. Editar libro\n 5. ver todos los libros\n 6. prestar libro\n 7. Devolver libro\n 8. ver historial de prestamos\n 9. ver todos los usuarios.\n 10. salir ");
+            
+            System.out.println("\n digite la opcion que desea: ");
+            int optionAdmin = input.nextInt();
+            switch (optionAdmin) {
+                case 1:
+                    changeCredentials(user);
+                    break;
+                case 2:
+                    addBooks();
+                    break;
+                case 3:
+                    deleteBook();
+                    break;
+                case 4:
+                    editBook();
+                    break;
+                case 5:
+                    allBooks();
+                    break;
+                case 6:
+                    lendBook();
+                    break;
+                case 7:
+                    returnBook();
+                    break;
+                case 8:
+                    historyLends();
+                    break;
+                case 9:
+                    allUser();
+                    break;
+                case 10:
+                    menuActive = false;
+                    break;
+            
+                default:
+                    break;
+            }
+            break;
         }
     }
+
+    public void changeCredentials(User user){
+
+    }
+    public void addBooks(){
+
+    }
+    public void deleteBook(){
+
+    }
+    public void editBook(){
+
+    }
+    public void allBooks(){
+
+    }
+    public void lendBook(){
+
+    }
+    public void returnBook(){
+
+    }
+    public void historyLends(){
+
+    }
+    public void allUser(){
+
+    }
+
+
     public void menuUser(User user){
             System.out.println("menu de usuarios" + user.getName());
     }
