@@ -18,7 +18,7 @@ public class Book {
         this.id = ++idGlobalBook;
     }
 
-    //method for book
+    //method getter for book
     public String getTitle(){
         return this.title;
     }
@@ -36,6 +36,24 @@ public class Book {
     }
     public int getId(){
         return this.id;
+    }
+
+    //methods setter for book
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    public void setYear(int year) {
+        this.year = year;
+    }
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 
     public void getInfoBook() {

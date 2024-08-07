@@ -75,29 +75,32 @@ public class Library {
         String userName = "";
 
         while (true) {
+            boolean userNameValid = false;
             System.out.println("tu nombre de usuario: ");
             String nameUser = input.nextLine();
-
-            boolean userNameValid = false;
-
-            if (userDB.size() == 0) {
+            // this "try" is for valid userName
+            try {
+                Utils.veritifyUserName(nameUser);
+                if (userDB.size() == 0) {
                 userName = nameUser;
                 break;
-            }
-
-            for (User user : userDB) {
-                if (user.getUserName().equals(nameUser)) {
-                    continue;
-                }else{
-                    userNameValid = true;
                 }
-            }
+                for (User user : userDB) {
+                    if (user.getUserName().equals(nameUser)) {
+                        continue;
+                    }else{
+                        userNameValid = true;
+                    }
+                }
 
-            if (userNameValid){
-                userName = nameUser;
-                break;
-            }else{
-                System.out.println("nombre de usuario no valido, intealo de nuevo.");
+                if (userNameValid){
+                    userName = nameUser;
+                    break;
+                }else{
+                    System.out.println("nombre de usuario no valido, intealo de nuevo.");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
 
@@ -143,7 +146,7 @@ public class Library {
     public void logIn() {
         boolean isLogin = true;
         while (isLogin) { 
-            System.out.println("____  login  _____");
+            System.out.println("        login      ");
             System.out.println("nombre de usuario: ");
             String userName = input.nextLine();
             System.out.println("_______________________________");
@@ -173,7 +176,7 @@ public class Library {
     public void menuLogin(){
         boolean loginActive = true;
         while (loginActive) {
-            System.out.println("___Bienvenido al inicio de sesion___");
+            System.out.println("    Menu inicio de sesion      ");
             System.out.println("  1. Iniciar sesion  ");
             System.out.println("  2. registrarse \n ");
 
@@ -202,11 +205,12 @@ public class Library {
     public void menuAdmin(User user) {
         boolean menuActive = true;
         while (menuActive) {
-            System.out.println("___ Menu  admin ____");
+            System.out.println("                     MENU           ");
             System.out.println("\n 1. Cambiar credenciales \n 2. Agregar libros\n 3. Eliminar libros\n 4. Editar libro\n 5. ver todos los libros\n 6. prestar libro\n 7. Devolver libro\n 8. ver historial de prestamos\n 9. ver todos los usuarios.\n 10. salir ");
             
             System.out.println("\n digite la opcion que desea: ");
             int optionAdmin = input.nextInt();
+            input.nextLine();
             switch (optionAdmin) {
                 case 1:
                     changeCredentials(user);
@@ -218,7 +222,21 @@ public class Library {
                     deleteBook();
                     break;
                 case 4:
-                    editBook();
+                    boolean activeEditBook = true;
+                    while (activeEditBook) {
+                        System.out.println("ingrese el id del libro: ");
+                        int idBook =input.nextInt();
+                        
+                        for (Book book : booksDB) {
+                            if (book.getId() == idBook) {
+                                editBook(book);
+                                activeEditBook = false;
+                                break;
+                            }
+                        }
+
+                        System.out.println("no se encontro el libro.");
+                    }
                     break;
                 case 5:
                     allBooks();
@@ -240,29 +258,165 @@ public class Library {
                     break;
             
                 default:
+                    System.out.println("opcion no valida");
                     break;
             }
-            break;
         }
     }
 
     public void changeCredentials(User user){
-
+        boolean menuActive = true;
+        while(menuActive) {
+            System.out.println("______________________________________________________________________");
+            System.out.println("   1.Cambiar nombre de usuario\n   2. cambiar contraseña \n   3. salir");
+            int option = input.nextInt();
+            input.nextLine();
+            switch (option) {
+                case 1:
+                    System.out.println("-Digite el nuevo nombre de usuario:   ");
+                    String name = input.nextLine();
+                    try {
+                        Utils.veritifyUserName(name);
+                        user.setUserName(name);
+                        System.out.println("--- el nombre de usuario se cambio correctamente --");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 2:
+                    System.out.println("-Digite el nueva contraseña:   ");
+                    String passWord = input.nextLine();
+                    try {
+                        Utils.veritifyPassWord(passWord);
+                        user.setPasword(passWord);
+                        System.out.println("--- la contraseña se cambio correctamente --");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    menuActive = false;
+                    break;
+            
+                default:
+                    break;
+            }
+        }
     }
+    
     public void addBooks(){
+        System.out.println(" - titulo del libro: ");
+        String title = input.nextLine();
 
+        System.out.println(" - Descripcion del libro: ");
+        String description = input.nextLine();
+
+        System.out.println(" - Autor del libro: ");
+        String author = input.nextLine();
+
+        int year = 0;
+
+        while (true) {
+            System.out.println(" - Año del libro: ");
+            int yearCurrent = input.nextInt();
+            try {
+                Utils.veritifyYearBook(yearCurrent);
+                year = yearCurrent;
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        System.out.println(" - Cantidad del libro: ");
+        int quality = input.nextInt();
+        input.nextLine();
+
+        Book book = new Book(title, description, author, year, quality);
+        booksDB.add(book);
+        System.out.println(" el libro se agrego correctamente. ");
     }
+
     public void deleteBook(){
+        System.out.println(" Digite el id del libro a borrar: ");
+        int idBook = input.nextInt();
 
+        for (Book book : booksDB) {
+            outerLoop:
+            if(book.getId() == idBook) {
+                System.out.println("Estas seguro de eliminar el libro: " + book.getTitle() + "(1.si / 2.no)");
+                int response = input.nextInt();
+                input.nextLine();
+                switch (response) {
+                    case 1:
+                        booksDB.remove(book);
+                        System.out.println(" se elimino el libro correctamente");
+                        break outerLoop;
+                    case 2:
+                        break outerLoop;
+                    default:
+                        break;
+                }
+                
+                
+            }
+        }
     }
-    public void editBook(){
+    public void editBook(Book book){
 
+        System.out.println("Que desea editar?\n 1.Titulo\n 2. descripcion\n 3. Autor\n 4. Año\n 5. cantidad\n 6.salir al menu.");
+        int option = input.nextInt();
+        input.nextLine();
+
+        switch (option) {
+            case 1:
+                System.out.println("ingrese el nuevo titulo :");
+                String title =input.nextLine();
+                book.setTitle(title);
+                break;
+            case 2:
+                System.out.println("ingrese la nueva descripcion :");
+                String description =input.nextLine();
+                book.setDescription(description);
+                break;
+            case 3:
+                System.out.println("ingrese el autor :");
+                String author =input.nextLine();
+                book.setAuthor(author);
+                break;
+            case 4:
+                System.out.println("ingrese el año :");
+                int year =input.nextInt();
+                input.nextLine();
+                book.setYear(year);
+                break;
+            case 5:
+                System.out.println("ingrese la cantidad:");
+                int quality =input.nextInt();
+                input.nextLine();
+                book.setQuality(quality);
+                break;
+            case 6:
+                
+                break;
+        
+            default:
+                System.out.println("option no validad");
+                break;
+        }
     }
     public void allBooks(){
-
+        if (booksDB.size() < 1) {
+            System.out.println("  no hay libros.  ");
+            return;
+        }
+        System.out.println("    LIBROS   ");
+        for (Book book : booksDB) {
+            book.getInfoBook();
+        }
     }
     public void lendBook(){
-
+        
     }
     public void returnBook(){
 
