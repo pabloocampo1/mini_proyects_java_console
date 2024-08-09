@@ -59,9 +59,10 @@ public class Book {
     public void getInfoBook() {
 
         System.out.println("_______________________________________________");
-        System.out.println("--  "+this.title);
-        System.out.println("--  "+this.year);
-        System.out.println("--  "+this.author);
-        System.out.println("--  "+this.description);
+        System.out.println(" Titulo -  "+this.title);
+        System.out.println(" Año -  "+this.year);
+        System.out.println(" Autor -  "+this.author);
+        System.out.println(" Id -  "+this.id);
+        System.out.println(" Cantidad disponible -  "+this.quality);
     }
 }

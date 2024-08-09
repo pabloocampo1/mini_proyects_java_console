@@ -17,6 +17,6 @@ public class BorrowedBooks {
     }
 
     public void showBorrowed() {
-        System.out.println("libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + date);
+        System.out.println(" id " + this.id + " - libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + date);
     }
 }

@@ -226,19 +226,37 @@ public class Library {
                     break;
                 case 4:
                     boolean activeEditBook = true;
+                    boolean findBook = false;
                     while (activeEditBook) {
                         System.out.println("ingrese el id del libro: ");
                         int idBook =input.nextInt();
+                        input.nextLine();
                         
                         for (Book book : booksDB) {
                             if (book.getId() == idBook) {
                                 editBook(book);
-                                activeEditBook = false;
+                                findBook= true;
                                 break;
                             }
+                            
                         }
 
-                        System.out.println("no se encontro el libro.");
+                        if(!findBook) {
+                            while (true) {
+                                System.out.println("no se encontro el libro. deseas intentarlo denuevo? (si/no) : ");
+                                String tryAgain = input.nextLine().toLowerCase();
+                                if (tryAgain.equals("si")) {
+                                    break;
+                                }else if(tryAgain.equals("no")) {
+                                    activeEditBook = false;
+                                    break;
+                                }else{
+                                    System.out.println("opcion no valida");
+                                }
+                            }
+                        }
+                        
+                                             
                     }
                     break;
                 case 5:
@@ -407,7 +425,7 @@ public class Library {
                 break;
         
             default:
-                System.out.println("option no validad");
+                System.out.println("option no valida");
                 break;
         }
     }
@@ -425,6 +443,7 @@ public class Library {
     public void lendBook(){
         System.out.println("digite la identificacion del usuario. ");
         int identification = input.nextInt();
+        input.nextLine();
 
         boolean userFound = false;
         boolean bookFound = false;
@@ -435,7 +454,8 @@ public class Library {
                     UserSimple userSimple = (UserSimple) user;
                     userFound = true;
                     System.out.println("ingrese el numero de id del libro a prestar");
-                    int idBook =input.nextInt();
+                    int idBook = input.nextInt();
+                    input.nextLine();
                     for (Book book : booksDB) {
                         if (book.getId() == idBook) {
                             bookFound = true;
@@ -457,7 +477,15 @@ public class Library {
         }
 
         if(!userFound) {
-            System.out.println("no se encontro el usuario.");
+            while (true) {
+                System.out.println("no se encontro el usuario. deseas intentarlo de nuevo? (si / no) ");
+                String optionBack = input.nextLine().toLowerCase();
+                if (optionBack.equals("si")) {
+                    lendBook();
+                }else if(optionBack.equals("no")){
+                    break;
+                }
+            }
         }else if(!bookFound) {
             System.out.println("no se encontro el libro.");
         }
