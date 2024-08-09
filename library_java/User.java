@@ -73,7 +73,7 @@ public class User {
 
 class UserSimple extends User{
     private ArrayList<String> booksHistory;
-    private ArrayList<Book> borrowedBooks;
+    private ArrayList<BorrowedBooks> borrowedBooks;
     private String rol;
 
     public UserSimple(String name, int identification, int age, String userName, String passWord) {
@@ -107,9 +107,13 @@ class UserSimple extends User{
         }
 
         System.out.println("____Libros actuales prestados.___");
-        for (Book book : borrowedBooks) {
+        for (BorrowedBooks book : borrowedBooks) {
             System.out.println("  -  " + book);
         }
+    }
+
+    public void addLoan(BorrowedBooks loan) {
+        borrowedBooks.add(loan);
     }
 }
 
