@@ -119,6 +119,8 @@ class UserSimple extends User{
     public void deleteLoan(BorrowedBooks loan){
         borrowedBooks.remove(loan);
     }
+
+    
 }
 
 
