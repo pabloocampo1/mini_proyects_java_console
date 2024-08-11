@@ -494,6 +494,58 @@ public class Library {
     }
     public void returnBook(){
 
+        if (borrowedBooks.size() <1 ) {
+            System.out.println("    No hay prestamos    ");
+            return;
+        }
+
+        System.out.println("digite la identificacion del usuario. ");
+        int identification = input.nextInt();
+        input.nextLine();
+
+        boolean userFound = false;
+        boolean loanFound = false;
+
+        for (User user : userDB) {
+            if (user.getIdentification() == identification) {
+                if (user instanceof UserSimple) {
+                    UserSimple userSimple = (UserSimple) user;
+                    userFound = true;
+                    userSimple.GetborrowedBooks();
+                    System.out.println("ingrese el id del prestamo a devolver: ");
+                    int id_loand =input.nextInt();
+                    input.nextLine();
+                    ArrayList<BorrowedBooks> toRemove = new ArrayList<>();
+                    for (BorrowedBooks lend : borrowedBooks) {
+                        if (lend.getIdLend() == id_loand) {
+                            loanFound = true;
+                            lend.qualityBook();
+                            userSimple.deleteLoan(lend);
+                            toRemove.add(lend);
+                            System.out.println("Entrega exitosa");
+                        }
+                    }
+                    borrowedBooks.removeAll(toRemove);
+                }
+            }
+        }
+
+        if(!userFound) {
+            while (true) {
+                System.out.println("no se encontro el usuario. deseas intentarlo de nuevo? (si / no) ");
+                String optionBack = input.nextLine().toLowerCase();
+                if (optionBack.equals("si")) {
+                    lendBook();
+                }else if(optionBack.equals("no")){
+                    break;
+                }
+            }
+        }else if(!loanFound) {
+            System.out.println("no se encontro el prestamo.");
+        }
+
+
+
     }
     public void allLoan(){
         System.out.println("       Prestamos actuales    ");
@@ -503,9 +555,60 @@ public class Library {
         }
     }
     public void allUser(){
+        if(userDB.size() < 1) {
+            System.out.println("         No hay usuarios registrados.       ");
 
+        }
     }
     
+
+    public void addManyBook(){
+        Book book1 = new Book(
+            "1984",
+            "A dystopian novel set in a totalitarian regime controlled by the Party.",
+            "George Orwell",
+            1949,
+            2
+        );
+
+        Book book2 = new Book(
+            "The Great Gatsby",
+            "A novel about the American Dream and the disillusionment of the Jazz Age.",
+            "F. Scott Fitzgerald",
+            1925,
+            3
+        );
+
+        Book book3 = new Book(
+            "Pride and Prejudice",
+            "A classic novel that explores the issues of marriage, morality, and misconceptions.",
+            "Jane Austen",
+            1813,
+            3
+        );
+
+        Book book4 = new Book(
+            "Moby Dick",
+            "A novel about the voyage of the Pequod, led by Captain Ahab in his quest for revenge against the white whale, Moby Dick.",
+            "Herman Melville",
+            1851,
+            1
+        );
+
+        Book book5 = new Book(
+            "The Catcher in the Rye",
+            "A story about a teenager, Holden Caulfield, and his experiences in New York City.",
+            "J.D. Salinger",
+            1951,
+            4
+        );
+
+        booksDB.add(book1);
+        booksDB.add(book2);
+        booksDB.add(book3);
+        booksDB.add(book4);
+        booksDB.add(book5);
+    }
 
 
     public void menuUser(User user){
@@ -521,6 +624,7 @@ public class Library {
 
     public static void main(String[] args) {
         Library library = new Library();
+        library.addManyBook();
         
         UserSimple user = new UserSimple("jua", 2, 3, "ju", "123");
         userAdmin admin = new userAdmin("jua", 2, 3, "juan", "13");

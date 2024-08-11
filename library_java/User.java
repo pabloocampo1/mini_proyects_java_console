@@ -108,12 +108,16 @@ class UserSimple extends User{
 
         System.out.println("____Libros actuales prestados.___");
         for (BorrowedBooks book : borrowedBooks) {
-            System.out.println("  -  " + book);
+            book.showBorrowed();
         }
     }
 
     public void addLoan(BorrowedBooks loan) {
         borrowedBooks.add(loan);
+    }
+
+    public void deleteLoan(BorrowedBooks loan){
+        borrowedBooks.remove(loan);
     }
 }
 

@@ -19,4 +19,11 @@ public class BorrowedBooks {
     public void showBorrowed() {
         System.out.println(" id " + this.id + " - libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + date);
     }
+    public int getIdLend(){
+        return this.id;
+    }
+
+    public void qualityBook(){
+        this.book.setQuality(book.getQuality() + 1);
+    }
 }
