@@ -642,9 +642,9 @@ public class Library {
 
 
     public void menuUser(UserSimple user){
-            System.out.println("   Menu, Hola " + user.getName() + "Bienvenido a la biblioteca fullHD");
-
-            user.getborrowedBooks();
+        System.out.println("   Menu, Hola " + user.getName() + "Bienvenido a la biblioteca fullHD");
+        
+        user.getborrowedBooks();
     }
 
     public void jjj(UserSimple user){
