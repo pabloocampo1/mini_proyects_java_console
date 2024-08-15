@@ -16,8 +16,8 @@ public class BorrowedBooks {
         this.date = date;
     }
 
-    public void showBorrowed() {
-        System.out.println(" id " + this.id + " - libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + date);
+    public String showBorrowed() {
+        return " id " + this.id + " - libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + date;
     }
     public int getIdLend(){
         return this.id;

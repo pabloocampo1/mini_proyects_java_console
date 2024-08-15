@@ -81,11 +81,11 @@ class UserSimple extends User{
         this.rol = "user";
         this.booksHistory = new ArrayList<>();
         this.borrowedBooks = new ArrayList<>();
-    }
+    };
 
     public String getRol(){
         return this.rol;
-    }
+    };
 
     public void showHistory () {
         if (booksHistory.size() < 1){
@@ -100,15 +100,17 @@ class UserSimple extends User{
 
     }
 
-    public void GetborrowedBooks(){
+    public void getborrowedBooks(){
         if (borrowedBooks.size() < 1) {
-            System.out.println("_____No tienes libros prestados.____ ");
+            System.out.println("_____  No tienes libros prestados.  ____ ");
             return;
         }
 
-        System.out.println("____Libros actuales prestados.___");
+        System.out.println("____ Libros actuales prestados.  ___");
         for (BorrowedBooks book : borrowedBooks) {
-            book.showBorrowed();
+            System.out.println("________________________________________");
+           String loanBook = book.showBorrowed();
+           System.out.println(loanBook);
         }
     }
 

@@ -9,12 +9,14 @@ public class Library {
     private ArrayList<User> userDB;
     private ArrayList<Book> booksDB;
     private ArrayList<BorrowedBooks> borrowedBooks;
+    private ArrayList<String> historyLoan;
     private Scanner input;
     
     public Library() {
         this.userDB = new ArrayList<>();
         this.booksDB = new ArrayList<>();
         this.borrowedBooks = new ArrayList<>();
+        this.historyLoan = new ArrayList<>();
         this.input = new Scanner(System.in);
     }
     // method for valida
@@ -161,7 +163,8 @@ public class Library {
             for (User user : userDB) {
                 if(user.getUserName().equals(userName) && user.getPassWord().equals(password)) {
                     if (user instanceof UserSimple) {
-                        menuUser(user);
+                        UserSimple userSimple = (UserSimple) user;
+                        menuUser(userSimple);
                     }else if(user instanceof userAdmin) {
                         menuAdmin(user);
                     }
@@ -209,7 +212,7 @@ public class Library {
         boolean menuActive = true;
         while (menuActive) {
             System.out.println("                     MENU           ");
-            System.out.println("\n 1. Cambiar credenciales \n 2. Agregar libros\n 3. Eliminar libros\n 4. Editar libro\n 5. ver todos los libros\n 6. prestar libro\n 7. Devolver libro\n 8. Ver todos los prestamos actuales\n 9. ver todos los usuarios.\n 10. crear un usuario\n 11. Cerrar sesion ");
+            System.out.println("\n 1. Cambiar credenciales \n 2. Agregar libros\n 3. Eliminar libros\n 4. Editar libro\n 5. ver todos los libros\n 6. prestar libro\n 7. Devolver libro\n 8. Ver todos los prestamos actuales\n 9. ver todos los usuarios.\n 10. crear un usuario\n 11. ver historial de prestamos\n 12. Cerrar sesion ");
             
             System.out.println("\n digite la opcion que desea: ");
             int optionAdmin = input.nextInt();
@@ -278,6 +281,9 @@ public class Library {
                     createNewAcount();
                     break;
                 case 11:
+                    showHistoryLoan();
+                    break;
+                case 12:
                     menuActive = false;
                     break;
             
@@ -468,6 +474,8 @@ public class Library {
                                 BorrowedBooks newBorrowedBook = new BorrowedBooks(userSimple, book, dataTime);
                                 borrowedBooks.add(newBorrowedBook);
                                 userSimple.addLoan(newBorrowedBook);
+                                String loan = newBorrowedBook.showBorrowed();
+                                historyLoan.add(loan);
                                 System.out.println("prestamo exitoso.");
                             }
                         }
@@ -511,7 +519,8 @@ public class Library {
                 if (user instanceof UserSimple) {
                     UserSimple userSimple = (UserSimple) user;
                     userFound = true;
-                    userSimple.GetborrowedBooks();
+        
+                    userSimple.getborrowedBooks();
                     System.out.println("ingrese el id del prestamo a devolver: ");
                     int id_loand =input.nextInt();
                     input.nextLine();
@@ -548,16 +557,26 @@ public class Library {
 
     }
     public void allLoan(){
+        if(borrowedBooks.size() < 1) {
+            System.out.println("        no hay prestamos.     ");
+            return;
+        }
+
         System.out.println("       Prestamos actuales    ");
         for (BorrowedBooks loan : borrowedBooks) {
             System.out.println("_______________________________________");
-            loan.showBorrowed();
+            String loanText = loan.showBorrowed();
+            System.out.println(loanText);
         }
     }
     public void allUser(){
         if(userDB.size() < 1) {
             System.out.println("         No hay usuarios registrados.       ");
 
+        }
+
+        for (User user : userDB) {
+            user.getInformation();
         }
     }
     
@@ -608,11 +627,24 @@ public class Library {
         booksDB.add(book3);
         booksDB.add(book4);
         booksDB.add(book5);
+    };
+
+    public void showHistoryLoan(){
+        if (historyLoan.size() < 1) {
+            System.out.println("   no hay prestamos    ");
+            return;
+        }
+
+        for (String loan : historyLoan) {
+            System.out.println(loan);
+        }
     }
 
 
-    public void menuUser(User user){
-            System.out.println("menu de usuarios" + user.getName());
+    public void menuUser(UserSimple user){
+            System.out.println("   Menu, Hola " + user.getName() + "Bienvenido a la biblioteca fullHD");
+
+            user.getborrowedBooks();
     }
 
     public void jjj(UserSimple user){
