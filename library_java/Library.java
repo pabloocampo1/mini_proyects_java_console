@@ -245,12 +245,12 @@ public class Library {
                         System.out.println("ingrese el id del libro: ");
                         int idBook =input.nextInt();
                         input.nextLine();
-                        
+                        outerLoop:
                         for (Book book : booksDB) {
                             if (book.getId() == idBook) {
                                 editBook(book);
-                                findBook= true;
-                                break;
+                                findBook = true;
+                                break outerLoop;
                             }
                             
                         }
@@ -269,6 +269,8 @@ public class Library {
                                 }
                             }
                         }
+
+                        activeEditBook = false;
                         
                                              
                     }
@@ -440,6 +442,7 @@ public class Library {
                 int quality =input.nextInt();
                 input.nextLine();
                 book.setQuality(quality);
+                book.veritifyStateBook();
                 break;
             case 6:
                 
@@ -450,6 +453,7 @@ public class Library {
                 break;
         }
     }
+
     public void allBooks(){
         if (booksDB.size() < 1) {
             System.out.println("  no hay libros.  ");

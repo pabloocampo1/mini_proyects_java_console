@@ -8,6 +8,7 @@ public class Book {
     private int quality;
     private String categoryBook;
     private static int idGlobalBook = 0;
+    private String state;
     private int id;
 
     public Book(String title, String description, String author, int year, int quality, String categoryBook ) {
@@ -18,6 +19,16 @@ public class Book {
         this.quality = quality;
         this.categoryBook = categoryBook;
         this.id = ++idGlobalBook;
+        this.state = "Disponible";
+        veritifyStateBook();
+    }
+
+    public void veritifyStateBook() {
+        if (getQuality() < 1) {
+            this.state = "No Disponible";
+        }else{
+            this.state = "Disponible";
+        }
     }
 
     //method getter for book
@@ -66,7 +77,7 @@ public class Book {
     }
 
     public void getInfoBook() {
-
+        veritifyStateBook();
         System.out.println("_______________________________________________");
         System.out.println(" Titulo -  "+this.title);
         System.out.println(" Año -  "+this.year);
@@ -74,5 +85,6 @@ public class Book {
         System.out.println(" Id -  "+this.id);
         System.out.println(" Cantidad disponible -  "+this.quality);
         System.out.println(" Categoria -  "+ this.categoryBook);
+        System.out.println(" - " + this.state);
     }
 }
