@@ -106,11 +106,11 @@ class UserSimple extends User{
             return;
         }
 
-        System.out.println("____ Libros actuales prestados.  ___");
-        for (BorrowedBooks book : borrowedBooks) {
-            System.out.println("________________________________________");
+        System.out.println("____   Libros actuales prestados.   ___");
+        for (BorrowedBooks book : borrowedBooks) { 
            String loanBook = book.showBorrowed();
            System.out.println(loanBook);
+           System.out.println("_____________________________________________________________________");
         }
     }
 

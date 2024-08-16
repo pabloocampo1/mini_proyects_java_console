@@ -6,15 +6,17 @@ public class Book {
     private String author;
     private int year;
     private int quality;
+    private String categoryBook;
     private static int idGlobalBook = 0;
     private int id;
 
-    public Book(String title, String description, String author, int year, int quality ) {
+    public Book(String title, String description, String author, int year, int quality, String categoryBook ) {
         this.title = title;
         this.description = description;
         this.author = author;
         this.year = year;
         this.quality = quality;
+        this.categoryBook = categoryBook;
         this.id = ++idGlobalBook;
     }
 
@@ -33,6 +35,9 @@ public class Book {
     }
     public int getYear(){
         return this.year;
+    }
+    public String getCategoryBook() {
+        return this.categoryBook;
     }
     public int getId(){
         return this.id;
@@ -56,6 +61,10 @@ public class Book {
         this.quality = quality;
     }
 
+    public void setCategoryBook(String categoryBook) {
+        this.categoryBook = categoryBook;
+    }
+
     public void getInfoBook() {
 
         System.out.println("_______________________________________________");
@@ -64,5 +73,6 @@ public class Book {
         System.out.println(" Autor -  "+this.author);
         System.out.println(" Id -  "+this.id);
         System.out.println(" Cantidad disponible -  "+this.quality);
+        System.out.println(" Categoria -  "+ this.categoryBook);
     }
 }

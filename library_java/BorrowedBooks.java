@@ -17,7 +17,8 @@ public class BorrowedBooks {
     }
 
     public String showBorrowed() {
-        return " id " + this.id + " - libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + date;
+        String dateFormate = date.getDayOfMonth() +" de "+ date.getMonth() + " del "+ date.getYear();
+        return " id " + this.id + " - libro " + this.book.getTitle() + " - usuario " + this.user.getName() + user.getIdentification() + " - fecha: " + dateFormate;
     }
     public int getIdLend(){
         return this.id;

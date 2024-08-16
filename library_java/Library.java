@@ -3,6 +3,7 @@ package library_java;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 
 public class Library {
@@ -19,6 +20,16 @@ public class Library {
         this.historyLoan = new ArrayList<>();
         this.input = new Scanner(System.in);
     }
+
+    public void sortBooks() {
+        booksDB.sort(new Comparator<Book>() {
+            @Override
+            public int compare(Book b1, Book b2) {
+                return b1.getTitle().compareTo(b2.getTitle()); 
+            }
+        });
+    }
+
     // method for valida
     public void isUserRegister(User user) {
         if( user == null) {
@@ -336,7 +347,7 @@ public class Library {
     
     public void addBooks(){
         System.out.println(" - titulo del libro: ");
-        String title = input.nextLine();
+        String title = input.nextLine().toUpperCase();
 
         System.out.println(" - Descripcion del libro: ");
         String description = input.nextLine();
@@ -362,9 +373,13 @@ public class Library {
         int quality = input.nextInt();
         input.nextLine();
 
-        Book book = new Book(title, description, author, year, quality);
+        
+        String categoryBook = Utils.chooseCategoryBook(input);
+
+        Book book = new Book(title, description, author, year, quality, categoryBook);
         booksDB.add(book);
         System.out.println(" el libro se agrego correctamente. ");
+        //sortBooks();
     }
 
     public void deleteBook(){
@@ -440,6 +455,7 @@ public class Library {
             System.out.println("  no hay libros.  ");
             return;
         }
+        sortBooks();
         System.out.println("    LIBROS   ");
         for (Book book : booksDB) {
             book.getInfoBook();
@@ -587,7 +603,8 @@ public class Library {
             "A dystopian novel set in a totalitarian regime controlled by the Party.",
             "George Orwell",
             1949,
-            2
+            2,
+            "Ficcion"
         );
 
         Book book2 = new Book(
@@ -595,7 +612,8 @@ public class Library {
             "A novel about the American Dream and the disillusionment of the Jazz Age.",
             "F. Scott Fitzgerald",
             1925,
-            3
+            3,
+            "Ficcion"
         );
 
         Book book3 = new Book(
@@ -603,7 +621,8 @@ public class Library {
             "A classic novel that explores the issues of marriage, morality, and misconceptions.",
             "Jane Austen",
             1813,
-            3
+            3,
+            "No Ficcion"
         );
 
         Book book4 = new Book(
@@ -611,7 +630,8 @@ public class Library {
             "A novel about the voyage of the Pequod, led by Captain Ahab in his quest for revenge against the white whale, Moby Dick.",
             "Herman Melville",
             1851,
-            1
+            1,
+            "Biografia y autobiografia"
         );
 
         Book book5 = new Book(
@@ -619,7 +639,8 @@ public class Library {
             "A story about a teenager, Holden Caulfield, and his experiences in New York City.",
             "J.D. Salinger",
             1951,
-            4
+            4,
+            "Ficcion"
         );
 
         booksDB.add(book1);
@@ -643,7 +664,7 @@ public class Library {
 
     public void menuUser(UserSimple user){
         System.out.println("   Menu, Hola " + user.getName() + "Bienvenido a la biblioteca fullHD");
-        
+
         user.getborrowedBooks();
     }
 
@@ -657,6 +678,7 @@ public class Library {
     public static void main(String[] args) {
         Library library = new Library();
         library.addManyBook();
+        library.sortBooks();
         
         UserSimple user = new UserSimple("jua", 2, 3, "ju", "123");
         userAdmin admin = new userAdmin("jua", 2, 3, "juan", "13");
