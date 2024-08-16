@@ -663,8 +663,8 @@ public class Library {
 
 
     public void menuUser(UserSimple user){
-        System.out.println("   Menu, Hola " + user.getName() + "Bienvenido a la biblioteca fullHD");
-
+        System.out.println("   Menu, Hola " + user.getName() + " Bienvenido a la biblioteca fullHD.");
+        System.out.println(" 1. cambiar credenciales\n 2. buscar libro\n 3. ver todos los libros\n 4. Prestar libros\n 5. Devolver libro\n Cerrar sesion.");
         user.getborrowedBooks();
     }
 
