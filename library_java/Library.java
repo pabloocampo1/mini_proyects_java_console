@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.util.Comparator;
-
-
 public class Library {
     private ArrayList<User> userDB;
     private ArrayList<Book> booksDB;
@@ -175,7 +173,7 @@ public class Library {
                 if(user.getUserName().equals(userName) && user.getPassWord().equals(password)) {
                     if (user instanceof UserSimple) {
                         UserSimple userSimple = (UserSimple) user;
-                        menuUser(userSimple);
+                        menuUser(userSimple, booksDB);
                     }else if(user instanceof userAdmin) {
                         menuAdmin(user);
                     }
@@ -254,7 +252,6 @@ public class Library {
                             }
                             
                         }
-
                         if(!findBook) {
                             while (true) {
                                 System.out.println("no se encontro el libro. deseas intentarlo denuevo? (si/no) : ");
@@ -269,10 +266,7 @@ public class Library {
                                 }
                             }
                         }
-
-                        activeEditBook = false;
-                        
-                                             
+                        activeEditBook = false;                           
                     }
                     break;
                 case 5:
@@ -349,7 +343,7 @@ public class Library {
     
     public void addBooks(){
         System.out.println(" - titulo del libro: ");
-        String title = input.nextLine().toUpperCase();
+        String title = input.nextLine();
 
         System.out.println(" - Descripcion del libro: ");
         String description = input.nextLine();
@@ -594,7 +588,7 @@ public class Library {
             System.out.println("         No hay usuarios registrados.       ");
 
         }
-
+        System.out.println("     USUARIOS       ");
         for (User user : userDB) {
             user.getInformation();
         }
@@ -666,10 +660,139 @@ public class Library {
     }
 
 
-    public void menuUser(UserSimple user){
-        System.out.println("   Menu, Hola " + user.getName() + " Bienvenido a la biblioteca fullHD.");
-        System.out.println(" 1. cambiar credenciales\n 2. buscar libro\n 3. ver todos los libros\n 4. Prestar libros\n 5. Devolver libro\n Cerrar sesion.");
-        user.getborrowedBooks();
+    public void menuUser(UserSimple user, ArrayList<Book> BookDB){
+        boolean menuUserActive = true;
+        while (menuUserActive) {
+            System.out.println("\n        Menu, Hola " + user.getName() + " Bienvenido a la biblioteca fullHD. \n");
+            System.out.println(" 1. Cambiar credenciales\n 2. buscar libro\n 3. ver todos los libros\n 4. Prestar libros\n 5. Devolver libro\n 6. Cerrar sesion.");
+            int option = input.nextInt();
+            input.nextLine();
+            switch (option) {
+                case 1:
+                    changeCredentials(user);
+                    break;
+                case 2:
+                    boolean menuSearbook = true;
+                    while (menuSearbook) {
+                        System.out.println("   Como deseas buscar el libro?   \n 1.Por titulo\n 2. Por autor\n 3. Por categoria\n 4. Salir");
+                        int optionSearch = input.nextInt();
+                        input.nextLine();
+                        switch (optionSearch) {
+                            case 1:
+                                searchBookTitle();
+                                menuSearbook = false;
+                                break;
+                            case 2:
+                                searchBookAuthor();
+                                menuSearbook = false;
+                                break;
+                            case 3:
+                                searchBookCategory();
+                                menuSearbook = false;
+                                break;
+                            case 4:
+                                menuSearbook = false;
+                                break;
+                        
+                            default:
+                                System.out.println("   Debes de ingresar una opcion valida.   ");
+                                break;
+                        }
+                    }
+                    break;
+                case 3:
+                    user.showAllBooks(BookDB);
+                    break;
+                case 4:
+                    
+                    break;
+                case 5:
+                    
+                    break;
+                case 6:
+                    menuUserActive = false;
+                    break;
+            
+                default:
+                    System.out.println("    Debes de agregar una opcion correcta.  ");
+                    break;
+            }
+        }
+    }
+    public void searchBookTitle() {
+        System.out.println(" Ingresa el titulo del libro: ");
+        String title = input.nextLine().toUpperCase();
+        try {
+            boolean findBook = false;
+            for (Book book : booksDB) {
+                if (book.getTitle().toUpperCase().equals(title)) {
+                    findBook = true;
+                    book.getInfoBook();
+                }
+            }
+            if (findBook == false) {
+                throw new IllegalArgumentException("No se Encontro ningun libro. ");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Quieres intentarlo de nuevo? (1. si / 2. no)");
+        int optionBack = input.nextInt();
+        input.nextLine();
+        if (optionBack == 1) {
+            searchBookTitle();
+        }
+    }; 
+
+    public void searchBookAuthor() {
+        System.out.println(" Ingresa el nombre del autor: ");
+        String authorName = input.nextLine().toUpperCase();
+        try {
+            boolean findBook = false;
+            for (Book book : booksDB) {
+                if (book.getAuthor().toUpperCase().equals(authorName)) {
+                    findBook = true;
+                    book.getInfoBook();
+                }
+            }
+            if (findBook == false) {
+                throw new IllegalArgumentException("No se Encontro ningun autor. ");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Quieres intentarlo de nuevo? (1. si / 2. no)");
+        int optionBack = input.nextInt();
+        input.nextLine();
+        if (optionBack == 1) {
+            searchBookAuthor();
+        }
+    }
+    public void searchBookCategory() {
+        String category = Utils.chooseCategoryBook(input);
+        boolean findCategory = false;
+        try {
+            for (Book book : booksDB) {
+                if (book.getCategoryBook().equals(category)) {
+                    findCategory = true;
+                    book.getInfoBook();
+                }
+            };
+            if (!findCategory) {
+                throw new IllegalArgumentException("No hay libros en la categoria: " + category);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Quieres intentarlo de nuevo? (1. si / 2. no)");
+        int optionBack = input.nextInt();
+        input.nextLine();
+        if (optionBack == 1) {
+            searchBookCategory();
+        }
     }
 
     public void jjj(UserSimple user){

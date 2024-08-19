@@ -122,6 +122,13 @@ class UserSimple extends User{
         borrowedBooks.remove(loan);
     }
 
+    //funcion of the menu
+    public void showAllBooks(ArrayList<Book> bookDB) {
+        for (Book book : bookDB) {
+            book.getInfoBook();
+        }
+    }
+
     
 }
 
