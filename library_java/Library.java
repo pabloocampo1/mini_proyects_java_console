@@ -1,5 +1,4 @@
 package library_java;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -19,6 +18,10 @@ public class Library {
         this.input = new Scanner(System.in);
     }
 
+    public void closeScanner() {
+        input.close();
+    };
+
     public void sortBooks() {
         booksDB.sort(new Comparator<Book>() {
             @Override
@@ -26,7 +29,7 @@ public class Library {
                 return b1.getTitle().compareTo(b2.getTitle()); 
             }
         });
-    }
+    };
 
     // method for valida
     public void isUserRegister(User user) {
@@ -36,7 +39,7 @@ public class Library {
         }else{
             System.out.println("agregado exitosamente¡");
         }
-    }
+    };
 
     //method for create new acount
 
@@ -148,7 +151,7 @@ public class Library {
             }
         }
 
-        UserSimple user = new UserSimple(name, identification, age, userName, passWord);
+        User user = new UserSimple(name, identification, age, userName, passWord);
         
         userDB.add(user);
         isUserRegister(user);
@@ -186,7 +189,7 @@ public class Library {
                 System.out.println("credenciales incorrectas, intentalo de nuevoo");
             }
         }
-    }
+    };
 
     public void menuLogin(){
         boolean loginActive = true;
@@ -299,7 +302,7 @@ public class Library {
                     break;
             }
         }
-    }
+    };
 
     public void changeCredentials(User user){
         boolean menuActive = true;
@@ -339,7 +342,7 @@ public class Library {
                     break;
             }
         }
-    }
+    };
     
     public void addBooks(){
         System.out.println(" - titulo del libro: ");
@@ -376,7 +379,7 @@ public class Library {
         booksDB.add(book);
         System.out.println(" el libro se agrego correctamente. ");
         //sortBooks();
-    }
+    };
 
     public void deleteBook(){
         System.out.println(" Digite el id del libro a borrar: ");
@@ -402,7 +405,8 @@ public class Library {
                 
             }
         }
-    }
+    };
+
     public void editBook(Book book){
 
         System.out.println("Que desea editar?\n 1.Titulo\n 2. descripcion\n 3. Autor\n 4. Año\n 5. cantidad\n 6.salir al menu.");
@@ -446,7 +450,7 @@ public class Library {
                 System.out.println("option no valida");
                 break;
         }
-    }
+    };
 
     public void allBooks(){
         if (booksDB.size() < 1) {
@@ -510,10 +514,9 @@ public class Library {
             }
         }else if(!bookFound) {
             System.out.println("no se encontro el libro.");
-        }
+        } 
+    };
 
-        
-    }
     public void returnBook(){
 
         if (borrowedBooks.size() <1 ) {
@@ -545,7 +548,7 @@ public class Library {
                             lend.qualityBook();
                             userSimple.deleteLoan(lend);
                             toRemove.add(lend);
-                            System.out.println("Entrega exitosa");
+                            System.out.println("        Entrega exitosa");
                         }
                     }
                     borrowedBooks.removeAll(toRemove);
@@ -566,10 +569,8 @@ public class Library {
         }else if(!loanFound) {
             System.out.println("no se encontro el prestamo.");
         }
+    };
 
-
-
-    }
     public void allLoan(){
         if(borrowedBooks.size() < 1) {
             System.out.println("        no hay prestamos.     ");
@@ -592,9 +593,8 @@ public class Library {
         for (User user : userDB) {
             user.getInformation();
         }
-    }
+    };
     
-
     public void addManyBook(){
         Book book1 = new Book(
             "1984",
@@ -658,13 +658,13 @@ public class Library {
             System.out.println(loan);
         }
     }
-
+        //        MENUUU OF USER     
 
     public void menuUser(UserSimple user, ArrayList<Book> BookDB){
         boolean menuUserActive = true;
         while (menuUserActive) {
             System.out.println("\n        Menu, Hola " + user.getName() + " Bienvenido a la biblioteca fullHD. \n");
-            System.out.println(" 1. Cambiar credenciales\n 2. buscar libro\n 3. ver todos los libros\n 4. Prestar libros\n 5. Devolver libro\n 6. Cerrar sesion.");
+            System.out.println(" 1. Cambiar credenciales\n 2. buscar libro\n 3. ver todos los libros\n 4. Prestar libros\n 5. Devolver libro\n 6. Ver prestamos actuales\n 7 Ver historial de prestamos\n 8 Cerrar sesion.");
             int option = input.nextInt();
             input.nextLine();
             switch (option) {
@@ -693,7 +693,6 @@ public class Library {
                             case 4:
                                 menuSearbook = false;
                                 break;
-                        
                             default:
                                 System.out.println("   Debes de ingresar una opcion valida.   ");
                                 break;
@@ -704,15 +703,20 @@ public class Library {
                     user.showAllBooks(BookDB);
                     break;
                 case 4:
-                    
+                    user.LoanBookUser(booksDB, input, borrowedBooks, historyLoan,user);
                     break;
                 case 5:
-                    
+                    user.returnBook();
                     break;
                 case 6:
+                    user.showAllLoan();
+                    break;
+                case 7:
+                    user.showHistoryLoan();
+                    break;
+                case 8:
                     menuUserActive = false;
                     break;
-            
                 default:
                     System.out.println("    Debes de agregar una opcion correcta.  ");
                     break;
@@ -793,26 +797,20 @@ public class Library {
         if (optionBack == 1) {
             searchBookCategory();
         }
-    }
-
-    public void jjj(UserSimple user){
+    };
+    public void adminInit(userAdmin user){
         userDB.add(user);
     }
-    public void jjj(userAdmin user){
-        userDB.add(user);
-    }
-
     public static void main(String[] args) {
         Library library = new Library();
         library.addManyBook();
         library.sortBooks();
-        
-        UserSimple user = new UserSimple("jua", 2, 3, "ju", "123");
         userAdmin admin = new userAdmin("jua", 2, 3, "juan", "13");
-        library.jjj(user);
-        library.jjj(admin);
+        library.adminInit(admin);
         library.menuLogin();
-        
+        library.closeScanner();
     }
-
 }
+
+
+
