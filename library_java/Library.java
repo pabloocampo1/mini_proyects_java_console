@@ -805,7 +805,7 @@ public class Library {
         Library library = new Library();
         library.addManyBook();
         library.sortBooks();
-        userAdmin admin = new userAdmin("jua", 2, 3, "juan", "13");
+        userAdmin admin = new userAdmin("juan", 2, 3, "juan123", "juan12345");
         library.adminInit(admin);
         library.menuLogin();
         library.closeScanner();
